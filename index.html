@@ -100,7 +100,7 @@
 
     /* Estilos Principales */
     h1 {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       margin-bottom: 10px;
       background: linear-gradient(45deg, #38bdf8, #60a5fa, #bfdbfe);
       -webkit-background-clip: text;
@@ -111,7 +111,100 @@
     p.subhead {
       font-size: 1.2rem;
       color: #94a3b8;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
+    }
+
+    /* ESTILOS DEL PASTEL Y VELA */
+    .cake-container {
+      margin: 25px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cake {
+      position: relative;
+      width: 120px;
+      height: 90px;
+      background: #f472b6;
+      border-radius: 10px 10px 4px 4px;
+      box-shadow: inset 0 -12px 0 #db2777, inset 0 12px 0 #fbcfe8;
+    }
+
+    .cake::before {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: -10px;
+      width: 140px;
+      height: 10px;
+      background: #38bdf8;
+      border-radius: 10px;
+    }
+
+    .candle {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 30px;
+      background: repeating-linear-gradient(45deg, #38bdf8, #38bdf8 5px, #ffffff 5px, #ffffff 10px);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .flame {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 18px;
+      background: #facc15;
+      border-radius: 50% 50% 20% 20%;
+      box-shadow: 0 0 12px #facc15, 0 0 20px #f97316;
+      animation: flicker 0.2s infinite alternate;
+      transition: opacity 0.5s ease-out;
+    }
+
+    .smoke {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: rgba(200, 200, 200, 0.6);
+      border-radius: 50%;
+      opacity: 0;
+    }
+
+    .flame.off {
+      opacity: 0;
+      animation: none;
+    }
+
+    .smoke.active {
+      animation: rise 1.5s ease-out forwards;
+    }
+
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(1); }
+      100% { transform: translateX(-50%) scale(1.15) rotate(2deg); }
+    }
+
+    @keyframes rise {
+      0% { opacity: 0.8; transform: translateX(-50%) translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(3); }
+    }
+
+    .blow-text {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #38bdf8;
+      margin-top: 15px;
+      transition: color 0.5s ease;
     }
 
     /* Galería final */
@@ -146,7 +239,7 @@
 
     /* Reproductor de audio */
     .music-player {
-      margin: 20px 0 30px 0;
+      margin: 20px 0 20px 0;
       background: rgba(2, 6, 23, 0.6);
       padding: 12px 25px;
       border-radius: 50px;
@@ -233,13 +326,24 @@
       <h1>¡Feliz Cumpleaños 25 mi amorcito hermoso!</h1>
       <p class="subhead">Amor, felicidad y salud siempre para ti, mi alegria en el codazon</p>
 
+      <!-- PASTEL CON VELA Y BLOW TEXT -->
+      <div class="cake-container">
+        <div class="cake">
+          <div class="candle">
+            <div class="flame" id="flame"></div>
+            <div class="smoke" id="smoke"></div>
+          </div>
+        </div>
+        <p class="blow-text" id="blowText">¡Que le sople, que le sople! 🎂💨</p>
+      </div>
+
       <!-- Reproductor de Música -->
       <div class="music-player">
         <button class="play-btn" id="musicToggle">❚❚</button>
         <span id="musicStatus">felicidadeeeeeeeeeeeesssss</span>
       </div>
 
-      <!-- Galería de Fotos (Rutas a noabrir/) -->
+      <!-- Galería de Fotos -->
       <div class="gallery">
         <div class="card">
           <img src="noabrir/foto1.png" alt="Cumpleañero 25">
@@ -251,10 +355,9 @@
 
       <!-- Mensaje Personalizado -->
       <div class="message">
-        <p>Que estos 25 años vengan llenos de risas, éxitos, momentos increíbles y muchas alegrías bb. Diosito contigo siempre mi niño <3 
-</p>
-<br></br><br></br>
-<p>Obvimeayudonuestropoderosaiaiajeje</p>
+        <p>Que estos 25 años vengan llenos de risas, éxitos, momentos increíbles y muchas alegrías bb. Diosito contigo siempre mi niño &lt;3</p>
+        <br><br>
+        <p>Obvimeayudonuestropoderosaiaiajeje</p>
       </div>
     </div>
 
@@ -291,7 +394,7 @@
       }
     });
 
-    // --- NAVEGACIÓN ---
+    // --- NAVEGACIÓN Y TEMPORIZADOR DE LA VELA ---
     function showStep2() {
       const step1 = document.getElementById('step1');
       const step2 = document.getElementById('step2');
@@ -308,9 +411,21 @@
       step2.classList.add('hidden');
       mainContent.classList.remove('hidden');
       mainContent.classList.add('fade-in');
+
+      // Temporizador de 7 segundos para apagar la velita
+      setTimeout(() => {
+        const flame = document.getElementById('flame');
+        const smoke = document.getElementById('smoke');
+        const blowText = document.getElementById('blowText');
+
+        flame.classList.add('off');
+        smoke.classList.add('active');
+        blowText.textContent = '¡Pide un deseo! ✨🕯️';
+        blowText.style.color = '#facc15';
+      }, 7000);
     }
 
-    // --- ANIMACIÓN DE CONFETI (Tonos Azules y Plateados) ---
+    // --- ANIMACIÓN DE CONFETI ---
     const canvas = document.getElementById('confetti');
     const ctx = canvas.getContext('2d');
 
