@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Feliz Cumpleaños 25! 🎉</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      /* Paleta Azul Marino Elegante */
+      background: linear-gradient(135deg, #020617, #0f172a, #1e293b);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 24px;
+      padding: 40px 20px;
+      box-shadow: 0 20px 50px rgba(2, 6, 23, 0.8);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Animación de entrada */
+    .fade-in {
+      animation: fadeIn 0.8s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Tarjetas de la historia */
+    .story-card {
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 380px;
+      margin: 0 auto;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .story-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .story-text {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      line-height: 1.4;
+      background: linear-gradient(45deg, #38bdf8, #60a5fa, #93c5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .next-btn {
+      background: linear-gradient(45deg, #0284c7, #3b82f6);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .next-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 20px rgba(56, 189, 248, 0.4);
+    }
+
+    /* Estilos Principales */
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, #38bdf8, #60a5fa, #bfdbfe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    p.subhead {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      margin-bottom: 30px;
+    }
+
+    /* Galería final */
+    .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: 16px;
+      padding: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      max-width: 300px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(14, 165, 233, 0.3);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+    }
+
+    /* Reproductor de audio */
+    .music-player {
+      margin: 20px 0 30px 0;
+      background: rgba(2, 6, 23, 0.6);
+      padding: 12px 25px;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .play-btn {
+      background: #0284c7;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .play-btn:hover {
+      background: #0369a1;
+      transform: scale(1.1);
+    }
+
+    /* Mensaje de amor */
+    .message {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      background: rgba(30, 41, 59, 0.4);
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    /* Canvas para el confeti */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="confetti"></canvas>
+
+  <!-- Ruta del audio dentro de la carpeta noabrir/ -->
+  <audio id="bgMusic" src="noabrir/cancion.mp3" loop autoplay></audio>
+
+  <div class="container">
+
+    <!-- PASO 1: Foto 1 -->
+    <div id="step1" class="story-card fade-in">
+      <img src="noabrir/foto1.png" alt="Foto 1">
+      <p class="story-text">"NoOo 25 :o"</p>
+      <button class="next-btn" onclick="showStep2()">hijole ya viejito, picale pls</button>
+    </div>
+
+    <!-- PASO 2: Foto 2 -->
+    <div id="step2" class="story-card hidden">
+      <img src="noabrir/foto2.png" alt="Foto 2">
+      <p class="story-text">"Luciendo espectacular, radiante y cada día tu mejor versiónnnnn"</p>
+      <button class="next-btn" onclick="showMainContent()">obviooooo</button>
+    </div>
+
+    <!-- PASO 3: Contenido Principal -->
+    <div id="mainContent" class="hidden">
+      <h1>¡Feliz Cumpleaños 25 mi amorcito hermoso!</h1>
+      <p class="subhead">Amor, felicidad y salud siempre para ti, mi alegria en el codazon</p>
+
+      <!-- Reproductor de Música -->
+      <div class="music-player">
+        <button class="play-btn" id="musicToggle">❚❚</button>
+        <span id="musicStatus">felicidadeeeeeeeeeeeesssss</span>
+      </div>
+
+      <!-- Galería de Fotos (Rutas a noabrir/) -->
+      <div class="gallery">
+        <div class="card">
+          <img src="noabrir/foto1.png" alt="Cumpleañero 25">
+        </div>
+        <div class="card">
+          <img src="noabrir/foto2.png" alt="Cumpleañero 25 estilo selfie">
+        </div>
+      </div>
+
+      <!-- Mensaje Personalizado -->
+      <div class="message">
+        <p>Que estos 25 años vengan llenos de risas, éxitos, momentos increíbles y muchas alegrías bb. Diosito contigo siempre mi niño <3 
+</p>
+<br></br><br></br>
+<p>Obvimeayudonuestropoderosaiaiajeje</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // --- MANEJO DEL AUDIO AUTOMÁTICO ---
+    const audio = document.getElementById('bgMusic');
+    const playBtn = document.getElementById('musicToggle');
+    const musicStatus = document.getElementById('musicStatus');
+
+    window.addEventListener('load', () => {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          const enableAudio = () => {
+            audio.play();
+            document.removeEventListener('click', enableAudio);
+          };
+          document.addEventListener('click', enableAudio);
+        });
+      }
+    });
+
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playBtn.textContent = '❚❚';
+        musicStatus.textContent = 'Sonando la mejor música 🎶';
+      } else {
+        audio.pause();
+        playBtn.textContent = '▶';
+        musicStatus.textContent = 'Música pausada';
+      }
+    });
+
+    // --- NAVEGACIÓN ---
+    function showStep2() {
+      const step1 = document.getElementById('step1');
+      const step2 = document.getElementById('step2');
+      
+      step1.classList.add('hidden');
+      step2.classList.remove('hidden');
+      step2.classList.add('fade-in');
+    }
+
+    function showMainContent() {
+      const step2 = document.getElementById('step2');
+      const mainContent = document.getElementById('mainContent');
+      
+      step2.classList.add('hidden');
+      mainContent.classList.remove('hidden');
+      mainContent.classList.add('fade-in');
+    }
+
+    // --- ANIMACIÓN DE CONFETI (Tonos Azules y Plateados) ---
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const colors = ['#38bdf8', '#60a5fa', '#93c5fd', '#f8fafc', '#38bdf8'];
+    const confettiParticles = [];
+
+    for (let i = 0; i < 100; i++) {
+      confettiParticles.push({
+        x: Math.random() * width,
+        y: Math.random() * height - height,
+        size: Math.random() * 8 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        speedY: Math.random() * 3 + 1,
+        speedX: Math.random() * 2 - 1,
+        rotation: Math.random() * 360,
+        rotationSpeed: Math.random() * 10 - 5
+      });
+    }
+
+    function renderConfetti() {
+      ctx.clearRect(0, 0, width, height);
+
+      confettiParticles.forEach((p) => {
+        p.y += p.speedY;
+        p.x += p.speedX;
+        p.rotation += p.rotationSpeed;
+
+        if (p.y > height) {
+          p.y = -10;
+          p.x = Math.random() * width;
+        }
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+      });
+
+      requestAnimationFrame(renderConfetti);
+    }
+
+    renderConfetti();
+  </script>
+</body>
+</html>
